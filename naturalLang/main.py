@@ -1,7 +1,10 @@
 import openai
 from openai import OpenAI
+import pygame
+import os
 import sqlite3
 import mysql.connector
+from gtts import gTTS
 
 
 client = OpenAI(
@@ -15,29 +18,17 @@ response = client.chat.completions.create(
         {"role": "user", "content": f"""CONTESTA SOLO CON LA QUERY QUE ME CONSIGA LO SIGUENTE, NADA DE TEXTO APARTE DEL QUERY: "{queryLenguajeNatural}" 
         
         BASE DE DATOS: 
-        
-        Tables in the database:
+        La primera tabla se llama rack_1, con columnas: Id_producto, Producto, Cantidad, Rack_correspondiente
+        La segunda tabla se llama rack_2, con columnas: Id_producto, Producto, Cantidad, Rack_correspondiente
 
-Table: rack_1
-Columns: Id_producto, Producto, Cantidad, Rack_correspondiente
-(10001, 'Product A', 50, 1)
-(10002, 'Product B', 20, 1)
-(10003, 'Product C', 30, 1)
-(10004, 'Product D', 10, 1)
-(10005, 'Product E', 25, 1)
-
-Table: rack_2
-Columns: Id_producto, Producto, Cantidad, Rack_correspondiente
-(20001, 'Product F', 40, 2)
-(20002, 'Product G', 15, 2)
-(20003, 'Product H', 60, 2)
-(20004, 'Product I', 35, 2)
-(20005, 'Product J', 45, 2)"""},
+        Consulta estas tablas para satisfacer el query
+"""},
     ],
     stream=False
 )
 
 generated_query = response.choices[0].message.content
+
 
 print(generated_query)
 
@@ -62,16 +53,38 @@ try:
     
     # Print the column headers
     columns = [desc[0] for desc in cursor.description]
-    print(f"Columns: {', '.join(columns)}")
 
-    # Print all rows
+    # Initialize the results string with column names
+    results = f"Columns: {', '.join(columns)}\n"
+
+    # Add data rows to the results string
     for row in rows:
         print(row)
+        results += ', '.join(str(value) for value in row) + "\n"
+
+    # Print results for debugging
+    print("Query Results:")
+    print(results)
 
 except mysql.connector.Error as err:
     print(f"Error: {err}")
-    print("Lo siento, no encuentro lo que me has pedido")
+    results="Lo siento, no encuentro lo que me has pedido, puedes intentar de nuevo"
 
-# Close the cursor and connection
+#Close the cursor and connection
 cursor.close()
 conn.close()
+
+#this is the tts part, which will take the query result, format it to natural lang and say it
+
+language="es"
+gtts_object=gTTS(text=results, lang=language, slow=False)
+gtts_object.save("gtts.mp3")
+
+pygame.mixer.init()
+pygame.mixer.music.load('gtts.mp3')
+pygame.mixer.music.play()
+
+# Keep the program running until the sound finishes
+while pygame.mixer.music.get_busy():
+    pygame.time.Clock().tick(10)
+
