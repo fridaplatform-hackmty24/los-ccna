@@ -82,7 +82,9 @@ if __name__ == "__main__":
             La primera tabla se llama rack_1, con columnas: Id_producto, Producto, Cantidad, Rack_correspondiente
             La segunda tabla se llama rack_2, con columnas: Id_producto, Producto, Cantidad, Rack_correspondiente
             La tercera tabla se llama rack_3, con columnas: Id_producto, Producto, Cantidad, Rack_correspondiente
-            
+            La cuarta tabla se llama rack_4, con columnas: Id_producto, Producto, Cantidad, Rack_correspondiente
+            La quinta tabla se llama rack_5, con columnas: Id_producto, Producto, Cantidad, Rack_correspondiente
+
             Consulta todas estas tablas para satisfacer el query, no tienes permiso de modificar nada.
     """},
         ],
