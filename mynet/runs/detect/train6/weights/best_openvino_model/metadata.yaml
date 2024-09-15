@@ -1,0 +1,29 @@
+description: Ultralytics YOLOv8n model trained on data.yaml
+author: Ultralytics
+date: '2024-09-15T00:56:54.909559'
+version: 8.2.93
+license: AGPL-3.0 License (https://ultralytics.com/license)
+docs: https://docs.ultralytics.com
+stride: 32
+task: detect
+batch: 1
+imgsz:
+- 416
+- 416
+names:
+  0: '0'
+  1: '1'
+  2: '10'
+  3: '11'
+  4: '12'
+  5: '13'
+  6: '14'
+  7: '15'
+  8: '2'
+  9: '3'
+  10: '4'
+  11: '5'
+  12: '6'
+  13: '7'
+  14: '8'
+  15: '9'
