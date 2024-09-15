@@ -29,7 +29,6 @@ response = client.chat.completions.create(
 
 generated_query = response.choices[0].message.content
 
-
 print(generated_query)
 
 # Establish the connection
@@ -63,21 +62,33 @@ try:
         results += ', '.join(str(value) for value in row) + "\n"
 
     # Print results for debugging
-    print("Query Results:")
-    print(results)
+    #print("Query Results:")
+    #print(results)
+
+    #convirtiendo la respuesta a algo entendible
+    response1 = client.chat.completions.create(
+    model="gpt",
+    messages=[
+        {"role": "user", "content": f""" pregunta:{queryLenguajeNatural}, queryderivado:{generated_query}, resultado de la base de datos: {results}
+        basandote en estos, explica el resultado de su pregunta muy brevemente
+        """},
+    ],
+    stream=False
+    )
+
+    softenedResponse = response1.choices[0].message.content
+    print("softenedresponse:",softenedResponse)
 
 except mysql.connector.Error as err:
     print(f"Error: {err}")
-    results="Lo siento, no encuentro lo que me has pedido, puedes intentar de nuevo"
+    softenedResponse="Lo siento, no encuentro lo que me has pedido, puedes intentar de nuevo"
 
 #Close the cursor and connection
 cursor.close()
 conn.close()
 
-#this is the tts part, which will take the query result, format it to natural lang and say it
-
 language="es"
-gtts_object=gTTS(text=results, lang=language, slow=False)
+gtts_object=gTTS(text=softenedResponse, lang=language, slow=False)
 gtts_object.save("gtts.mp3")
 
 pygame.mixer.init()
