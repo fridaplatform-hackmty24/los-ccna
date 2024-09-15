@@ -4,13 +4,18 @@ import io
 import re
 import subprocess
 
+"""
+installs:
+pip install google-cloud-speech
+pip install openai
+"""
+
 #Third-party libraries
 import pygame
 import sqlite3
 import mysql.connector
 from gtts import gTTS
 import sounddevice as sd
-import numpy as np
 import scipy.io.wavfile as wav
 from google.oauth2 import service_account
 from google.cloud import speech
@@ -49,7 +54,7 @@ def parse_results(response):
             transcript = alternatives[0].transcript
     return transcript
 
-if __name__ == "__main__":
+def perform_search():
     #record audio to output.wav file
     filename = record_audio("output.wav", duration=5)
     audio_file='output.wav'
@@ -147,6 +152,18 @@ if __name__ == "__main__":
         if match:
             rack_number = int(match.group(1))
             print(f'The rack number is: {rack_number}')
+            language="es"
+            gtts_object=gTTS(text=softenedResponse, lang=language, slow=False)
+            gtts_object.save("gtts.mp3")
+
+            pygame.mixer.init()
+            pygame.mixer.music.load('gtts.mp3')
+            pygame.mixer.music.play()
+
+            # Keep the program running until the sound finishes
+            while pygame.mixer.music.get_busy():
+                pygame.time.Clock().tick(10)
+            return rack_number
             
         else:
             print('Rack number not found.')
@@ -171,3 +188,17 @@ if __name__ == "__main__":
     # Keep the program running until the sound finishes
     while pygame.mixer.music.get_busy():
         pygame.time.Clock().tick(10)
+
+def main():
+    while True:
+        rack_number = perform_search()
+        if rack_number is not None:
+            print(f"Rack number returned: {rack_number}")
+            
+            break
+        else:
+            #time.sleep(5)
+            print("Retrying search...")
+
+if __name__ == "__main__":
+    main()
