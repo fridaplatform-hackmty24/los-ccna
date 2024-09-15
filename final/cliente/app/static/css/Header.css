@@ -1,0 +1,10 @@
+.main-header {
+    display:flex;
+    margin: 0, 20px;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #9fa2a6; /* Color de fondo */
+    color: white;
+    box-sizing: border-box;
+}

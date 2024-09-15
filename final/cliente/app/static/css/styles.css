@@ -1,0 +1,145 @@
+/*Googgle fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Globals */
+html, body {
+    margin: 0;
+    padding: 0 ;
+    width: 100%;
+    overflow: hidden; /* Prevents horizontal scrolling */
+}
+.container {
+    max-width: 100%; /* Prevent containers from extending beyond the window */
+    overflow-x: hidden; /* Ensure no horizontal scroll happens inside the container */
+    box-sizing: border-box; /* Ensure padding and border are included in the element's width */
+}
+
+
+/* Estilos para el header */
+
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    margin-right: 20px;.main-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        background-color: #333;
+        color: #fff;
+    }
+    
+    .logo h1 {
+        margin: 0;
+        font-size: 22px;
+    }
+    
+    .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+    }
+    
+    .navbar ul li a {
+        color: #fff;
+        text-decoration: none;
+        padding-bottom: 5px;
+    }
+    
+    .navbar ul li a:hover {
+        border-bottom: 2px solid #fff;
+    }
+    
+    .logout-btn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 14px;
+        border-radius: 5px;
+    }
+
+    
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: #ffc107; /* Color al pasar el ratón por encima */
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.logout-btn {
+    background-color: #dc3545; /* Color del botón de cerrar sesión */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #c82333; /* Color al pasar el ratón por encima */
+}
+/* Definir el contenedor de la imagen */
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%; /* Esto asegura que ocupe el ancho disponible */
+}
+
+.image_container img {
+    max-width: 100%;  /* Para ajustar el tamaño de la imagen si es necesario */
+    height: auto;
+    display: block;   /* Asegura que la imagen se comporte correctamente en flexbox */
+}
+
+img {
+    max-width: 100%; /* Ajusta la imagen al tamaño del contenedor si es necesario */
+    height: auto;
+}
+
+.image_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Center items horizontally */
+    justify-content: center;  /* Center items vertically */
+    text-align: center;
+    width: 100%;
+}
+
+.image_container img {
+    display: block;
+    margin: 0 auto; /* Ensure the image is centered */
+}
+
+h1 {
+    margin-bottom: 20px;
+    text-align: center;
+}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http_equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Dropdown Menu</title>
+
+    <!-- Box Icons -->
+     <link href = "https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    
+     <!-- Custom CSS -->
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/Racks.css') }}">
+
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/testyle.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/testyle copy.css') }}">
+     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="sidebar close">
+        <!-- ========== Logo ============  -->
+        <a href="#" class="logo-box">
+            <i class='bx bxs-shopping-bag-alt'></i>
+            <div class="logo-name">yourLogo</div>
+        </a>
+
+        <!-- ========== List ============  -->
+        <ul class="sidebar-list">
+
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
+                <div class="title">
+                    <a href="/ " class="link">
+                        <i class='bx bx-grid-alt'></i>
+                        <span class="name">Dashboard</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="#" class="link submenu-title">Dashboard</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
+
+            <!-- -------- Dropdown List Item ------- -->
+            <li class="dropdown">
+                <div class="title">
+                    <a href="#" class="link">
+                        <i class='bx bx-collection'></i>
+                        <span class="name">Racks</span>
+                    </a>
+                    <i class='bx bxs-chevron-down'></i>
+                </div>
+                <div class="submenu">
+                    <a href="#" class="link submenu-title">Racks en la Tienda</a>
+                    <a href="../racks/rack_1" class="link">Rack 1</a>
+                    <a href="../racks/rack_2" class="link">Rack 2</a>
+                    <a href="../racks/rack_3" class="link">Rack 3</a>
+                    <a href="../racks/rack_4" class="link">Rack 4</a>
+                    <a href="../racks/rack_5" class="link">Rack 5</a>
+
+                </div>
+            </li>
+
+            
+            <!-- -------- Non Dropdown List Item ------- -->
+            
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
+                <div class="title">
+                    <a href="#" class="link">
+                        <i class='bx bx-cog'></i>
+                        <span class="name">Settings</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="#" class="link submenu-title">Settings</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- ============= Home Section =============== -->
+    <section class="home">
+        <div class="toggle-sidebar">
+            <i class='bx bx-menu'></i>
+            <div class="text">Toggle</div>
+            <div class="topbar"></div>
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+            </div>
+        </div>
+        <!-- Here is the fancy table with your dynamic content -->
+        <div class="table">
+            <table id="rack-table">
+                <thead>
+                    <tr>
+                        <th>Producto ID</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Posición</th>
+                    </tr>
+                </thead>
+                <tbody id="rack-container">
+                    <!-- Dynamic data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    
+    <!-- Link JS -->
+    <script src="static/js/main2.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="{{ url_for('static', filename='js/chartsJS.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const rackContainer = document.getElementById('rack-container');
+    const rackName = "{{ rack_name }}";
+
+    if (rackName) {
+        const url = `/db_tables/${rackName}`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const items = data.rack_data || [];
+                items.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item[0]}</td>
+                        <td>${item[1]}</td>
+                        <td>${item[2]}</td>
+                        <td>${item[3]}</td>
+                    `;
+                    rackContainer.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    } else {
+        console.error('rack_name no está definido');
+    }
+});
+  
+
+    </script>
+    <script type="text/javascript">
+        // Function to periodically check for alerts
+        function checkForAlert() {
+            fetch('/racks/rack_1/5')  // Replace with your desired endpoint
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert(data.message);  // Display the alert pop-up
+                    }
+                })
+                .catch(error => console.log('Error:', error));
+        }
+    
+        // Check for alerts every 5 seconds
+        setInterval(checkForAlert, 5000);
+    </script>
+    
+</body>
+
+
+</html>

@@ -1,0 +1,44 @@
+ /* Estilo para la imagen y el canvas */
+.image-container {
+  
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin: 20px;
+    
+}
+img {
+    display: flex;
+}
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* Permite que los clics pasen al área del mapa de imagen */
+}
+
+.step{ 
+    display: block;
+    justify-content: space-between center;
+    align-items: center;
+    margin: 20px;
+}
+
+/* Estilo para los racks (botones) */
+.rack-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.rack-buttons a {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: list-item;
+    margin: 5px 0;
+    border-radius: 5px;
+    font-size: 16px;
+}
